@@ -1,0 +1,92 @@
+# encoding: utf-8
+# 2024 R1
+SetScriptVersion(Version="24.1.144")
+system1 = GetSystem(Name="SYS")
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+model1.Exit()
+system1.DisplayText = "Mert Hayla"
+model1.Edit()
+model1.Exit()
+Save(Overwrite=True)
+resultsComponent1 = system1.GetComponent(Name="Results")
+resultsComponent1.Update(AllDependencies=True)
+results1 = system1.GetContainer(ComponentName="Results")
+results1.Edit()
+model1.Exit()
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+material1 = engineeringData1.GetMaterial(Name="küre kütle")
+matlProp1 = material1.GetProperty(Name="Density")
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["7.16197E-06 [kg m^-3]"]])
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+setupComponent1 = system1.GetComponent(Name="Setup")
+setupComponent1.Refresh()
+setup1 = system1.GetContainer(ComponentName="Setup")
+setup1.Edit()
+model1.Exit()
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["7.16197E-06 [kg m^-3]"]])
+model1.Edit()
+model1.Exit()
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["1.717E-05 [kg m^-3]"]])
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["1.717E-05 [kg m^-3]"]])
+modelComponent1.Refresh()
+model1.Edit()
+model1.Exit()
+matlProp1.SetVariableProperty(
+    VariableName="Density",
+    Property="Unit",
+    Value="kg mm^-3")
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["1.717E-14 [kg mm^-3]"]])
+model1.Edit()
+model1.Exit()
+modelComponent1.Refresh()
+setupComponent1.Refresh()
+setup1.Edit()
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["1717 [kg mm^-3]"]])
+model1.Exit()
+modelComponent1.Refresh()
+setupComponent1.Refresh()
+setup1.Edit()
+model1.Exit()
+matlProp1.SetVariableProperty(
+    VariableName="Density",
+    Property="Unit",
+    Value="kg m^-3")
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["1716999999999.9998 [kg m^-3]"]])
+setup1.Edit()
+favorites1 = EngData.LoadFavoriteItems()
+matlProp1.SetVariableProperty(
+    VariableName="Density",
+    Property="Unit",
+    Value="kg mm^-3")
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["1716.9999999999998 [kg mm^-3]"]])
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["171700 [kg mm^-3]"]])
+Update()
+model1.Edit()
+model1.Exit()
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["1.717E-05 [kg mm^-3]"]])
+Update()
+model1.Edit()
+model1.Exit()
+Save(Overwrite=True)

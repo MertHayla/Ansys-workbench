@@ -1,0 +1,57 @@
+# encoding: utf-8
+# 2024 R1
+SetScriptVersion(Version="24.1.144")
+template1 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.Edit()
+geometry1.Exit()
+system1.Delete()
+template2 = GetTemplate(TemplateName="Geometry")
+system2 = template2.CreateSystem()
+geometry2 = system2.GetContainer(ComponentName="Geometry")
+geometry2.Edit()
+geometry2.Exit()
+Save(Overwrite=True)
+template3 = GetTemplate(
+    TemplateName="Modal",
+    Solver="ANSYS")
+geometryComponent1 = system2.GetComponent(Name="Geometry")
+system3 = template3.CreateSystem(
+    ComponentsToShare=[geometryComponent1],
+    Position="Right",
+    RelativeTo=system2)
+modelComponent1 = system3.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1 = system3.GetContainer(ComponentName="Model")
+model1.Edit()
+model1.Exit()
+system4 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent1],
+    Position="Below",
+    RelativeTo=system3)
+modelComponent2 = system4.GetComponent(Name="Model")
+modelComponent2.Refresh()
+model2 = system4.GetContainer(ComponentName="Model")
+model2.Edit()
+template4 = GetTemplate(
+    TemplateName="Linear Buckling",
+    Solver="ANSYS")
+engineeringDataComponent1 = system4.GetComponent(Name="Engineering Data")
+geometryComponent2 = system4.GetComponent(Name="Geometry")
+system5 = template4.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, geometryComponent2, modelComponent2],
+    Position="Right",
+    RelativeTo=system4)
+solutionComponent1 = system4.GetComponent(Name="Solution")
+componentTemplate1 = GetComponentTemplate(Name="SimulationSetupCellTemplate_StructuralBucklingANSYS")
+system6 = template4.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, geometryComponent2, modelComponent2],
+    DataTransferFrom=[Set(FromComponent=solutionComponent1, TransferName=None, ToComponentTemplate=componentTemplate1)],
+    RelativeTo=system4)
+system5.Delete()
+Save(Overwrite=True)
+model2.Exit()
+Save(Overwrite=True)
